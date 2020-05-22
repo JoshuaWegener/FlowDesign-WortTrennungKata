@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Windows.Forms;
 
 namespace WortTrennung
@@ -43,7 +44,7 @@ namespace WortTrennung
         private static string TransformiereText(IEnumerable<string> textAlsArray, int spaltenBreite)
         {
             var zeilenLaenge = 0;
-            var ergebnisText = string.Empty;
+            var ergebnisText = new StringBuilder();
 
             foreach (var wort in textAlsArray)
             {
@@ -51,18 +52,20 @@ namespace WortTrennung
 
                 if (zeilenLaenge <= spaltenBreite)
                 {
-                    ergebnisText += wort + " ";
+                    ergebnisText.Append(wort + " ");
                     zeilenLaenge++;
                 }
                 else
                 {
-                    ergebnisText += Environment.NewLine;
-                    ergebnisText += wort + " ";
+                    ergebnisText.AppendLine(string.Empty);
+                    ergebnisText.Append(wort + " ");
                     zeilenLaenge = wort.Length + 1;
                 }
             }
 
-            return ergebnisText;
+            ergebnisText.Length--;
+
+            return ergebnisText.ToString();
         }
     }
 }
